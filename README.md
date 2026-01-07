@@ -93,31 +93,6 @@ secscanner scan ./src ./configs
 secscanner scan . -f json -o results.json
 ```
 
-### CI/CD Integration
-
-#### GitHub Actions
-
-```yaml
-name: Security Scan
-on: [push, pull_request]
-
-jobs:
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Run SecScanner
-        run: |
-          curl -sSL https://github.com/quacomes/secscanner/releases/latest/download/install.sh | bash
-          secscanner scan . --format sarif --output results.sarif --fail-on high
-      
-      - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: results.sarif
-```
-
 ### Configuration File
 
 Create `.secscanner.yaml` in your project root:
